@@ -59,7 +59,7 @@ export default {
                 callback(data);
             }
         });
-        console.log('subscriber', subscriber);
+        // console.log('subscriber', subscriber);
     },
     isConnect: () => connection_socket.readyState <= 1,
 }

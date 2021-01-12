@@ -33,7 +33,7 @@
 
 	game_store.subscribe( data => {
 		gameState = new GameState(data);
-		console.log('gameState', gameState);
+		// console.log('gameState', gameState);
 	});
 
 	async function startNewGame(){
@@ -44,7 +44,7 @@
 	}
 
 	async function takeSpace(space){
-		console.log('takeSpace', space);
+		// console.log('takeSpace', space);
 		if(gameState.winner || !gameStore.isConnect)
 			return;
 
