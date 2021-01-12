@@ -1,7 +1,7 @@
 <script>
 	import Space from './Space.svelte';
 	import game_store from './game-store.js';
-	import {nextMove} from './requests.js';
+	import {nextMove, newGame} from './requests.js';
 	import gameStore from './game-store.js';
 
 	let errorMessage;
@@ -33,9 +33,15 @@
 
 	game_store.subscribe( data => {
 		gameState = new GameState(data);
-		// console.log('data from store', data);
-		// console.log('gameState', gameState);
+		console.log('gameState', gameState);
 	});
+
+	async function startNewGame(){
+		const msg = await newGame()
+		if(msg != 'OK'){
+			errorMessage = msg;	
+		}
+	}
 
 	async function takeSpace(space){
 		console.log('takeSpace', space);
@@ -43,7 +49,7 @@
 			return;
 
 		errorMessage = await nextMove(space);
-	} 
+	}
 </script>
 
 <style>
@@ -87,22 +93,22 @@
 		<h2>Next Player: {gameState.nextPlayer}</h2>
 	{/if}
 	<div class="row">
-		<Space space="{gameState.board[0]}" on:click={() => takeSpace(0)}></Space>
-		<Space space="{gameState.board[1]}" on:click={() => takeSpace(1)}></Space>
-		<Space space="{gameState.board[2]}" on:click={() => takeSpace(2)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[0]}" on:click={() => takeSpace(0)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[1]}" on:click={() => takeSpace(1)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[2]}" on:click={() => takeSpace(2)}></Space>
 	</div>
 	<div class="row">
-		<Space space="{gameState.board[3]}" on:click={() => takeSpace(3)}></Space>
-		<Space space="{gameState.board[4]}" on:click={() => takeSpace(4)}></Space>
-		<Space space="{gameState.board[5]}" on:click={() => takeSpace(5)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[3]}" on:click={() => takeSpace(3)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[4]}" on:click={() => takeSpace(4)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[5]}" on:click={() => takeSpace(5)}></Space>
 	</div>
 	<div class="row">
-		<Space space="{gameState.board[6]}" on:click={() => takeSpace(6)}></Space>
-		<Space space="{gameState.board[7]}" on:click={() => takeSpace(7)}></Space>
-		<Space space="{gameState.board[8]}" on:click={() => takeSpace(8)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[6]}" on:click={() => takeSpace(6)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[7]}" on:click={() => takeSpace(7)}></Space>
+		<Space winner={gameState.winner} space="{gameState.board[8]}" on:click={() => takeSpace(8)}></Space>
 	</div>
 	{#if gameState.winner}	
-	<button>New Game</button>
+	<button on:click={startNewGame}>New Game</button>
 	{/if}
 	{#if errorMessage}	
 	<p class="errorMessage">{errorMessage}</p>

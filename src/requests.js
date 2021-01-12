@@ -12,7 +12,7 @@
     export const newGame = async () => {
         try{
             const response = await fetch(`${process.env.api_url}/reset`);
-            return await response.text;
+            return await response.text();
         }
         catch(ex){
             console.log('ERROR -  nextMove', ex);
