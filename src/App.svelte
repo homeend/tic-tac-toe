@@ -1,5 +1,9 @@
 <script>
 	import Space from './Space.svelte';
+	import game_store from './game-store.js';
+	game_store.subscribe( data => {
+		console.log('data from store', data);
+	});
 </script>
 
 <style>
