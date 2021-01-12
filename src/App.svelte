@@ -63,9 +63,9 @@
 	<h1>Tic Tac Toe</h1>
 	<h2>Number of people playing: {gameState.numberOfPlayers}</h2>
 	{#if gameState.winner == 'TIE'}
-		<h2>TIE</h2> 
+		<h2>Tie Game.</h2> 
 	{:else if gameState.winner}
-		<h2>{gameState.winner}</h2>
+		<h2>Winner is: {gameState.winner} !!!</h2>
 	{:else}
 		<h2>Next Player: {gameState.nextPlayer}</h2>
 	{/if}
