@@ -15,7 +15,7 @@
         cursor: pointer;
     }
     .winner{
-        background-color: purple;
+        color: purple;
     }
 </style>
 <div class="space" class:winner={won} on:click>
