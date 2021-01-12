@@ -13,6 +13,6 @@
         cursor: pointer;
     }
 </style>
-<div class="space">
+<div class="space" on:click>
     {space}
 </div>
