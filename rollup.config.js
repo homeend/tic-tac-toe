@@ -4,8 +4,12 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import replace from '@rollup/plugin-replace';
 
 const production = !process.env.ROLLUP_WATCH;
+const api_url = production ? 'https://xxx.ccc' : 'http://localhost:4001';
+const ws_url = production ? 'wss://xxx.xxx/ws' : 'ws://localhost:2222';
+
 
 function serve() {
 	let server;
@@ -37,6 +41,16 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		replace(
+			{
+				process: JSON.stringify({
+					env: {
+						api_url,
+						ws_url
+					}
+				})
+			}
+		),
 		svelte({
 			compilerOptions: {
 				// enable run-time checks when not in production
